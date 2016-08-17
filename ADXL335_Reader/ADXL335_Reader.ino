@@ -2,7 +2,7 @@
  * Simple program to read the data from an ADXL335.
  * It also calculates the actual voltage (based on the given reference voltage)
  * and calculates the acceleration based on this voltage.
- * 
+ *
  * Copyright (c) 2016 MrTijn/Tijndagamer
  * Released under the MIT license.
  */
@@ -25,8 +25,7 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Starting ADXL335 reader...");
   volts_per_unit = ANALOG_REFERENCE_VOLTAGE / 1024;
-  Serial.print("Volts/unit: ");
-  Serial.println(volts_per_unit);
+  Serial.println("x\ty\tz");
   pinMode(xpin, INPUT);
   pinMode(ypin, INPUT);
   pinMode(zpin, INPUT);
@@ -52,7 +51,7 @@ float readVoltage(int pin) {
 
 float calculateAcceleration(int pin) {
   float zero_g_voltage, calibration_offset;
-  if (pin == zpin) { 
+  if (pin == zpin) {
     zero_g_voltage = zero_g_voltage_z;
     calibration_offset = calibration_offset_z;
   }
@@ -61,10 +60,9 @@ float calculateAcceleration(int pin) {
     calibration_offset = calibration_offset_x_y;
   }
   float voltage = readVoltage(pin);
-  
+
   float adjusted_voltage = voltage - zero_g_voltage;
   // Calculate acceleration in g
   float acceleration = (adjusted_voltage / volts_per_g);
   return acceleration + calibration_offset;
 }
-
