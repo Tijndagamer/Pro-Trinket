@@ -37,6 +37,6 @@ class ADXL335
         // Methods        
         float readVoltage(int pin);
         float calculateAcceleration(int pin, float zero_g_voltage, float calibration_offset);        
-}
+};
 
 #endif
