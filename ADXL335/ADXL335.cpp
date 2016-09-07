@@ -14,8 +14,7 @@ ADXL335::ADXL335(int xpin, int ypin, int zpin, float vref)
     _xpin = xpin;
     _ypin = ypin;
     _zpin = zpin;
-    _vref = vref;
-    _volts_per_unit = _vref / 1024;
+    _volts_per_unit = vref / 1024;
 
     // Set the pins
     pinMode(_xpin, INPUT);
@@ -23,7 +22,6 @@ ADXL335::ADXL335(int xpin, int ypin, int zpin, float vref)
     pinMode(_zpin, INPUT);
 }
 
-// Read voltage on given pin
 float ADXL335::readVoltage(int pin)
 {
     int rawVoltage = analogRead(pin);
@@ -38,18 +36,25 @@ float ADXL335::calculateAcceleration(int pin, float zero_g_voltage, float calibr
     return acceleration + calibration_offset;
 }
 
+void ADXL335::setCalibrationOffset(float calibration_offset_x, float calibration_offset_y, float calibration_offset_z)
+{
+    _CALIBRATION_OFFSET_X = calibration_offset_x;
+    _CALIBRATION_OFFSET_Y = calibration_offset_y;
+    _CALIBRATION_OFFSET_Z = calibration_offset_z;
+}
+
 float ADXL335::readX()
 {
-    return calculateAcceleration(_xpin, ZERO_G_VOLTAGE_XY, CALIBRATION_OFFSET_X);
+    return calculateAcceleration(_xpin, ZERO_G_VOLTAGE_XY, _CALIBRATION_OFFSET_X);
 }
 
 float ADXL335::readY()
 {
-    return calculateAcceleration(_ypin, ZERO_G_VOLTAGE_XY, CALIBRATION_OFFSET_Y);
+    return calculateAcceleration(_ypin, ZERO_G_VOLTAGE_XY, _CALIBRATION_OFFSET_Y);
 }
 
 float ADXL335::readZ()
 {
-    return calculateAcceleration(_zpin, ZERO_G_VOLTAGE_Z, CALIBRATION_OFFSET_Z);
+    return calculateAcceleration(_zpin, ZERO_G_VOLTAGE_Z, _CALIBRATION_OFFSET_Z);
 }
 

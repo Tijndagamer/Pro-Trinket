@@ -14,6 +14,7 @@ class ADXL335
 {
     public:
         ADXL335(int xpin, int ypin, int zpin, float vref);
+        void setCalibrationOffset(float calibration_offset_x, float calibration_offset_y, float calibration_offset_z); 
         float readX();
         float readY();
         float readZ();
@@ -30,9 +31,9 @@ class ADXL335
         const float VOLTS_PER_G = 0.330;
 
         // Calibration values
-        const float CALIBRATION_OFFSET_X = 0.0;
-        const float CALIBRATION_OFFSET_Y = 0.0;
-        const float CALIBRATION_OFFSET_Z = 0.0;
+        float _CALIBRATION_OFFSET_X = 0.0;
+        float _CALIBRATION_OFFSET_Y = 0.0;
+        float _CALIBRATION_OFFSET_Z = 0.0;
 
         // Methods        
         float readVoltage(int pin);
