@@ -37,10 +37,9 @@ void loop() {
     if (inputSerial.available()) {
         log_file = SD.open("gps.log", FILE_WRITE);
         if (log_file) {
-            char buffer[256] = { NULL };
-            inputSerial.readBytesUntil('\n', buffer, 256);
+            String buffer = inputSerial.readStringUntil('\n');
             log_file.print(buffer);
-            Serial.println(buffer);
+            //Serial.println(buffer);
             log_file.close();
         } else {
             Serial.println("File error.");
