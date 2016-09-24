@@ -1,5 +1,8 @@
 /*
  * Logs GPS data (or other serial data) to an SD card.
+ * This program includes battery monitoring. If you're not using a battery, you
+ * can wire the battery monitor pin to Vbus or comment out the code realted to
+ * the battery monitor.
  * Made by MrTijn/Tijndagamer
  * Copyright (c) 2016
  * Released under the MIT license
@@ -15,7 +18,7 @@ const int warningLEDPin = 3;
 const int successLEDPin = 4;
 const int batteryMonitorPin = 1; // Analog pin for monitoring the battery input
 const float inputVoltage = 3.3;
-const float batteryMinVoltage = 2.30;
+const float batteryMinVoltage = 2.20;
 float voltsPerUnit;
 SoftwareSerial inputSerial(rxPin, txPin);
 File log_file;
